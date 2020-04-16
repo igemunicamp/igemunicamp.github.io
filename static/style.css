@@ -1,0 +1,1410 @@
+/* tables */
+table.tablesorter {
+	font-family:arial;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead th {
+	text-align:left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+}
+table.tablesorter thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	vertical-align: top;
+}
+table.tablesorter tbody tr.odd td {
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #ccc;
+}
+.heart13 {
+        background-image: url(heart13.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+
+
+<style>
+    
+
+    .loading_wheel{
+        display:none;
+    }
+    
+    .loading_wheel.show_it{
+        display: block;
+    }
+    
+    .button.load_more_teams{
+        cursor: pointer;
+        
+    }
+    
+    .small_icon{
+        margin-bottom: -3px;
+        padding-right: 5px;
+    }
+    
+    
+    .team_information_wrapper{
+        float: left;
+        width:33%;
+        
+    }
+
+
+    .team_information_wrapper.institution{
+        width: 66%;
+        margin-top: -11px;
+    }
+
+
+    
+    .column.full_size.general_p{
+        border: 1px solid #aaa;
+        padding: 2%;
+        width: 92%;
+    }
+    
+    .column.half_size.general_p p{
+        text-align: justify;
+    }
+    
+    .column.three_quarter_size.filter_tool{
+        border-left: 1px solid #d3d3d3;
+        width: 67%;
+        padding-left: 3%;
+    }
+    
+
+
+    .filter_button{
+        float:left;
+        display:none;
+        width: 30%;
+    }
+    
+    .search_button.button_disabled {
+        background-color: #9e9e9e !important;
+        color: #d3d3d3 !important;
+    }
+    
+    .search_button{
+        cursor: pointer;
+        background-color: #00A19B;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 120%;
+        font-weight: bold;
+        color: white;
+        width: 67%;
+    }
+    
+    .search_button:hover{
+        background-color: #00BBD3;
+    }
+    
+    
+    
+    .filter_categories_titles{
+    float: left;
+    padding: 7px 12px 5px 12px;
+    border: 1px solid white;
+    cursor: pointer;
+
+    color: #969696;
+    font-family: Freeroad_Regular;
+    border-bottom: 5px solid white;
+    font-size: 145%;
+    margin-right: 3%;
+    padding-left: 0px;
+    }
+    
+    
+    .filter_categories_titles.showing, .filter_categories_titles:hover{
+    border-bottom: 5px solid #085156;
+    color: #085156;
+    }
+    
+    
+    .filter_categories{
+        display:none;
+        margin-left:5px;
+    }
+
+    
+    .filter_categories.showing{
+        display:block;
+    }
+    
+    select{
+    width: 100%;
+    padding: 10px 10px;
+    font-size: 125%;
+    background-color: white;
+    font-weight: bold;
+    border: 1px solid #969696;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-position: center right;
+    background-repeat: no-repeat;
+        background-image: url(https://2019.igem.org/wiki/images/2/24/Dropdown_arrow.svg);
+        max-height: 200px;
+    }
+    
+    
+    ul.horizontal_select{
+        padding:0px 2px;
+        margin:0px;
+    }
+    
+    ul.horizontal_select li{
+    background-color: white;
+    display: block;
+    float: left;
+    padding: 5px 8px;
+    margin: 5px 0px 0px 10px;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+    white-space: nowrap;
+    }
+    
+    ul.horizontal_select li:hover, ul.horizontal_select li.selected_subcategory{
+        background-color: #00BBD3;
+        color:white;
+        border: 1px solid #00BBD3;
+        
+    }
+    
+        
+    
+    ul.horizontal_select li.select_title{
+    padding: 5px 0px 5px 0px;
+    margin-left: -5px;
+    background-color: white;
+    border: 1px solid white;
+    cursor: default;
+    color: #969696;
+    }
+    
+    
+    #loading_stuff{
+        display:none;
+    }
+    
+    
+    @media only screen and (max-width: 900px) {
+        .team_information_wrapper{ width:100%; margin-bottom:-20px;}
+            .team_information_wrapper.institution{ width:100%; margin-bottom:-20px; margin-top:10px;}
+    }
+        
+        
+</style>
+
+
+
+
+
+<style>
+
+/**************************************************************************************************************************************************************************************************/
+/* DEFAULT WIKI SETTINGS */
+/**************************************************************************************************************************************************************************************************/
+
+	#home_logo, #sideMenu, #sideMenu, #top_title, .patrollink {display:none;}
+	#content {margin-left:0px; margin-top:-7px; padding:0px; width:100%;}
+	body {background-color:white;}
+	#bodyContent h1, #bodyContent h2, #bodyContent h3, #bodyContent h4, #bodyContent h5 {margin-bottom: 0px;}
+	#bodyContent a[href ^="https://"], .link-https {padding-right:0px;}
+
+/**************************************************************************************************************************************************************************************************/
+/* MENU */
+/**************************************************************************************************************************************************************************************************/
+
+	/*igem menu div - this wraps the whole of the menu*/
+	.igem_menu { 
+		background-color:#dcdcdc; 
+		border-left: 1px solid #dcdcdc;
+		float:right; 
+		height:100vh; 
+		max-width: 270px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		padding:0px;
+		position:fixed; 
+		right:0%;
+		text-align:left;
+		width: 15%; 
+	}
+
+
+	/*logo styling*/
+	.igem_menu_logo {
+		clear:both;
+		float:left;
+		padding: 5px 0px;
+		width:100%;
+	}
+
+	.igem_menu_logo img {
+		width:100%;
+	}
+	
+
+
+	 .igem_menu_item a {
+		color: #000;
+		text-decoration:none;
+	}
+
+	#all_menu_items{ display:block;}
+	
+	
+
+/*menu item styling // layer one*/
+/**************************************************************************************************************************************************************************************************/
+
+	/* div for menu items (hubs or not)*/
+	.igem_menu_item{
+		background-color: #dcdcdc; 
+		border-bottom: 1px solid #c1c1c1; 
+		clear:both;
+		cursor:pointer;
+		font-weight: bold;
+		height: 39px;
+		width:100%; 
+	}
+
+	.igem_menu_item.last_item{
+		margin-bottom:60px;
+	}
+
+	/*styling for hub icons */
+	.hub_icon{
+		float: left;  
+		padding: 6.5px 3% 7px 3%;
+		width:10%; 
+	}
+	
+	/*specification for hub icon images*/
+	.hub_icon img {
+		width:20px;
+	}
+	/*specification for hub icon title  images*/
+	.main_title_icon {
+		width:40px!important;
+	}
+
+	/*styling for the title of the menu item*/
+	.hub_title{
+		float: left;  
+		font-size: 120%;
+		padding: 11px 3% 0px 3%;
+		width:62%; 
+	}
+
+
+
+	/*submenu and subsubmenus access button styling */
+	.submenu_access {
+		background-color: #dcdcdc;
+		float: left; 
+		font-size: 130%;
+		font-weight: bold;
+		height:61%;
+		max-width:100px;
+		padding: 9px 3% 6.25px 3%;
+		text-align:center;
+		width: 10%;
+	}
+
+	/* submenu access icon "+"  "-"*/
+	.submenu_access::before {
+		content: "+"; 
+	}
+
+	/* submenu access icon "+"  "-"*/
+	.submenu_access.showing::before {
+		content: "-"; 
+	}
+
+	/* change color when the submenu below is displayed*/
+	.submenu_access.showing {
+		background-color: #e8e8e8;
+	}
+
+	.submenu_access:hover {
+		background-color: #e8e8e8;
+	}
+
+	.igem_menu_item:hover,
+	.igem_menu_item.current_hub{ 
+		background-color: #66c7c4; 
+	}
+
+	
+	
+	
+/*submenu item styling // layer two*/
+/**************************************************************************************************************************************************************************************************/
+
+
+	/*submenu wrapper*/
+	.igem_submenu{
+		background-color: #e8e8e8;
+		clear:both;
+		display:none;
+		float: left;  		
+		width:100%;
+	}
+
+	/*styling for a submenu item*/
+	 .submenu_item {
+		border-bottom: 1px solid #dcdcdc;
+		height: 25px;
+		float: left;  
+		font-size: 110%;
+		padding: 10px 0px 4px 19%;
+		width:100%;
+	}
+
+	/*when the submenu item has a subsubmenu - make room for submenu access class on the same line*/
+	 .submenu_item.with_subsub_menu{   
+		background-color: #e8e8e8;
+    	float: left;
+		width: 65%;
+	}
+
+	/* submenu access styling if its inside a submenu */
+	.igem_submenu > .submenu_access {
+		background-color: #e8e8e8;
+	    border-bottom: 1px solid #dcdcdc;
+	    padding: 8.5px 3% 11.5px 3%;
+	}
+
+	.igem_submenu > .submenu_access:hover {
+		background-color: #fff;
+	}
+
+	.igem_submenu > .submenu_access.showing {
+		background-color: #fff;
+		border-bottom: 1px solid #fff;
+	}
+
+	.submenu_item:hover, 
+	.submenu_item.with_subsub_menu:hover,
+	.submenu_item.current_page, 
+	.submenu_item.with_subsub_menu.current_page {
+		background-color: #99d9d7; 
+	}
+
+
+	/*for subsection titles */
+	.submenu_item.subsection_title{
+    	color: #000;
+   		font-weight: 100;
+   		padding-left: 4%;
+	}
+
+	
+	.submenu_item.subsection_title:hover{
+		background-color:#e8e8e8;
+		cursor:initial;
+	}
+
+
+/*submenu item styling // layer three*/
+/**************************************************************************************************************************************************************************************************/
+
+	.igem_subsubmenu{
+		background-color: #fff;
+		clear:both;
+		display:none;
+	}
+
+	 .subsubmenu_item {
+		background-color:#fff;
+		border-bottom: 1px solid #e8e8e8;
+		font-size: 100%;
+		height: 22px;
+		padding: 7px 0px 4px 19%;
+	}
+
+	.subsubmenu_item:hover, 
+	.igem_submenu > .submenu_access.showing:hover,
+	.submenu_access.showing:hover,
+	.subsubmenu_item.current_subpage {
+		background-color: #cceceb; 
+	}
+
+	
+	
+/*mobile menu bar styling*/
+/**************************************************************************************************************************************************************************************************/
+
+
+	.igem_mobile_menu_bar {
+		background-color:#dcdcdc; 
+		border-bottom: 2px solid #c1c1c1;
+		cursor:pointer;
+		display:none; 
+		float:left;
+		margin-top: 0;
+		padding: 5px 0;
+		position:fixed;
+		width:100%; 
+	}
+
+	.igem_logo_mobile img {
+		width:70px;
+	}
+
+	.igem_logo_mobile {
+		float:left; 
+		padding-left: 5%;
+		width: 30%; 
+	}
+
+	.igem_menu_control_mobile img {
+		width:25px;
+	}
+
+	.igem_menu_control_mobile {
+		float:right; 
+		padding-right:5%; 
+		padding-top:5px;
+		text-align:right; 
+		width: 30%; 
+	}
+
+	
+
+/**************************************************************************************************************************************************************************************************/
+/* CONTENT OF THE PAGE */
+/**************************************************************************************************************************************************************************************************/
+
+	
+	
+	/* general wrapper for the content */
+	.igem_content_wrapper {
+		background-color:white; 
+		display:block;		
+		width:-webkit-calc(100% -270px);
+		width:-moz-calc(100% - 270px);
+ 		width:calc(100% - 270px);
+
+	}
+
+	/* subwrapper to center content */
+	.igem_column_wrapper {
+		margin:auto;
+		max-width: 1400px;
+		width:80%;
+	}
+
+
+/*general styling*/
+/**************************************************************************************************************************************************************************************************/
+
+
+	/*font sizes for all the h titles*/
+	.igem_content_wrapper h1 { font-size: 210%;}
+	.igem_content_wrapper h2 { font-size: 190%;}
+	.igem_content_wrapper h3 { font-size: 150%;}
+	.igem_content_wrapper h4 { font-size: 140%;}
+	.igem_content_wrapper h5 { font-size: 130%;}
+	.igem_content_wrapper h6 { font-size: 120%;}
+
+	/*font family next art*/
+	@font-face {
+		font-family: Freeroad_Bold;
+		src: url(https://2019.igem.org/wiki/images/1/1f/2019_freeroad_bold_font.ttf);
+	}
+
+	/*font family freeroad*/
+	@font-face {
+		font-family: Freeroad_Regular;
+   		src: url(https://2019.igem.org/wiki/images/2/26/2019_freeroad_font.ttf);
+	}
+
+	/* styling for the titles h1, h2*/
+	.igem_content_wrapper h1, .igem_content_wrapper h2 {
+		border-bottom:0px; 
+		/*color: #00a19c;*/
+		color: #004c00;
+		font-family: Freeroad_Bold;
+		line-height: initial;
+		padding: 5px 0px;
+	}
+
+	/* styling for the titles h3, h3, h5, h6 */
+	.igem_content_wrapper h3, .igem_content_wrapper h4, .igem_content_wrapper h5, .igem_content_wrapper h6 { 
+		border-bottom:0px; 
+		color: #212223;  
+		font-family: Freeroad_Regular;
+		line-height: initial;
+		padding: 5px 0px;
+	}
+
+	/* text */
+	.igem_content_wrapper p { 
+		font-size: 130%;
+		font-family: Arial;
+		padding: 5px 0px;
+		text-align: left;
+	}
+
+	/* Links */
+	.igem_content_wrapper a {
+		color: #0a5157;
+		font-weight: bold; 
+		text-decoration: underline;
+		text-decoration-color:#0a5157;
+		transition: all 0.4s ease;
+		-webkit-transition: all 0.4s ease;
+		-moz-transition: all 0.4s ease; 
+		-ms-transition: all 0.4s ease; 
+		-o-transition: all 0.4s ease; 
+	}
+
+	/* hover for the links */
+	.igem_content_wrapper a:hover { 
+		color: #13c0d7;
+		text-decoration:none;
+	}
+
+	/*for images that are href*/
+	a.image_href{
+		text-decoration:none;
+	}
+
+	/* non numbered lists */
+	.igem_content_wrapper ul {
+		font-family:Arial; 
+		font-size: 130%;
+		list-style: disc;
+		padding:0px 20px;
+	}
+
+	/*font size specifications for nested lists and other special cases*/
+	.igem_content_wrapper td > ul li, .igem_content_wrapper ol ol li, .igem_content_wrapper ul ol li, .igem_content_wrapper ol ul li, .igem_content_wrapper ul ul li   { 
+		font-size: 75%;
+		margin-bottom: 10px;
+		line-height: 18px;
+	}
+
+
+	/* numbered lists */
+	.igem_content_wrapper ol {
+		font-family:Arial; 
+		font-size: 130%;
+		padding:0px; 
+	}
+
+	/* Table */
+	.igem_content_wrapper table { 
+		border: 1px solid #c1c1c1; 
+		border-collapse: collapse; 
+		font-size: 120%;
+		width: 100%; 
+	}
+
+	/* table cells */
+	.igem_content_wrapper  td { 
+		border: 1px solid #c1c1c1; 
+		border-collapse: collapse; 
+		font-size: 105%;
+		padding: 10px;
+		vertical-align: text-top; 
+	}
+
+	/* table headers */
+	.igem_content_wrapper th { 
+	    background-color: #f2f2f2;
+	    border: 1px solid #d3d3d3;
+	    border-collapse: collapse;
+	    font-size: 110%;
+	    padding: 10px;
+	    vertical-align: text-top;
+	    text-align: left;
+	}
+
+
+/*layout classes*/
+/**************************************************************************************************************************************************************************************************/
+
+	/*main layout class */
+	.column  { 
+		float:left;
+		margin: 1% 2%;
+		padding: 0px;
+	}
+
+	/* 100% */
+	.full_size { width:96%; }
+	/* 66% */
+	.two_thirds_size { width: 62.6%; }
+	/* 33% */
+	.third_size { width: 29.3%; }
+	/* 75% */
+	.three_quarter_size {  width: 71%; }
+	/* 50% */
+	.half_size {  width: 46%; }
+	/* 25% */
+	.quarter_size {	width: 21%; }
+
+	/*styling for all images*/
+	.full_size img, 
+	.half_size img, 
+	.two_thirds_size img, 
+	.third_size img,  
+	.three_quarter_size img, 
+	.quarter_size img { 
+		margin-bottom: 15px;
+		width: 100%; 
+	}
+
+	/* page break */
+	.clear {
+		clear:both;
+	}
+	
+	/*add extra space to page break with clear class*/
+	.clear.extra_space {
+		height: 30px;
+	}
+
+	/* horizontal gray line to divide the page*/
+	.line_divider {
+    	border-top: 1px solid #848484;
+	  	margin: auto;
+   	 	width: 98%;
+	}
+
+	.line_divider.dark {
+		border-top: 1px solid #000000;
+	}
+
+	
+	/* softer horizontal gray line to divide the page*/
+	.line_divider.soft {
+		border-top: 1px solid #c1c1c1;
+	}
+	
+	/*highlight class can be used style divs in multiple combinations*/
+	.highlight { 
+		padding: 15px 20px;
+	}
+
+	.highlight p, .highlight h3, .highlight h4, .highlight h5, .highlight h6 { 
+		padding: 0px 15px;
+	}
+
+	.highlight.gray {
+		background-color: #f2f2f2; 
+	}
+
+	.highlight.decoration_top {
+    	border-top: 4px solid #00a19c;
+	}
+
+	.highlight.decoration_red_top, .highlight.post_item.decoration_red_top {
+    	border-top: 4px solid #F42534;
+	}
+
+	.highlight.decoration_full, .highlight.post_item.decoration_full {
+    	border: 4px solid #00a19c;
+	}
+
+	
+	.highlight.decoration_red_full, .highlight.post_item.decoration_red_full {
+    	border: 4px solid #F42534;
+	}
+
+
+	
+/*support classes*/
+/**************************************************************************************************************************************************************************************************/
+
+
+	/*special image that takes up the entire page*/
+	.full_size_image {  
+		width:100%; 
+		margin-top: -60px;
+	} 
+
+
+	/*Button  */
+	/************************************************/
+	.button {
+		font-size: 115%;
+		margin: 30px auto;
+		text-align: center;
+	}
+
+	.button a  {
+		background-color: #00a19c !important;
+		color: #ffffff !important;
+		font-weight: bold;
+		margin: auto;
+		text-decoration: none !important;
+		padding: 10px 15px !important;
+	}
+
+	.button a:hover {
+		background-color: #0a5157 !important;
+	}
+
+
+
+	/*Expand collapse  --- REVIEW THIS ANA*/ 
+	/************************************************/
+	.expand_content.first{
+		float:left; 
+		margin-right: -15px;
+	}
+
+	.expand_content.control_button {
+		background-color:#10996a;
+		border: 2px solid #10996a;
+		border-radius: 50%;
+		color:#ffffff;
+		cursor:pointer;
+		float: left;
+		font-weight: bold;
+		margin: 0px 5px;
+		padding-bottom: 1px;
+		text-align: center;
+		width: 20px;
+	}
+
+	.expand_content.control_button:hover {
+		color: #10996a;
+		background-color:#ffffff;
+		border: 2px solid #10996a;
+		float: left;
+	}
+
+	.expand_content.control_button::before {
+		content: "+"; 
+	}
+
+	/* this is the icon for when the content is expanded */
+	.expand_content.control_button.less::before {
+		content: "–"; 
+	}
+
+	.expand_content.more { 
+		display: none;
+		float:left; 
+	}
+
+
+	/*hiding and showing content */
+	/************************************************/
+
+	/*content for buttons showing/hiding content */
+	.content_control::before { content: "+"; }
+	.content_control.displaying_content::before { content: "-"; }
+
+	/*used to hide content when it is added to a class */
+	.hide_content, 
+	.collapsible_accordion_content.hide_content {
+		display:none;
+	}
+
+	/*image caption*/
+	/************************************************/
+
+	.igem_content_wrapper p.image_caption {
+		font-size: 100%;
+    	margin-top: -10px;
+    	padding-top: 0;
+	}
+	
+	
+	/*Post items*/
+	/************************************************/
+	.highlight.post_item {
+		border: 1px solid #6f7173;
+		height: auto;
+		margin: auto;
+		padding: 30px 20px 15px 30px;
+	}
+	
+	
+	/* modify the size of sub divs inside post items*/
+   	.column.full_size > .highlight.post_item  > .column.three_quarter_size {
+   	   	margin:0;
+   	   	width:75%;
+    }
+
+   	.column.full_size > .highlight.post_item  > .column.quarter_size {
+   		margin:0;
+       	width:25%;
+   	}
+	
+
+	/* post item details encloses and frames the post's title, date and icon*/
+	.highlight.post_item > .details {
+		clear: both;
+		height: 30px;
+		padding: 0px 30px 0px 15px;
+		width: 97%;
+	}
+
+	.highlight.post_item  > .details > .title {
+		border-bottom: 0px;
+		color: #212223;
+		float:left;
+		font-family: Freeroad_Regular;
+		font-size: 150%;
+	}
+	
+	.highlight.post_item  > .details > .date {
+		color: #6f7173;
+		float: right;
+		font-family: Freeroad_Regular;
+		font-size: 150%;
+ 	  	font-style: italic;
+	}	
+	
+	.highlight.post_item  > .details > .icon {
+   		float: left;
+   		margin-left: -4px;
+   		margin-top: -7px;
+		width: 30px;
+	}
+
+	
+	/* iconography for posts */
+	
+	.highlight.post_item  > .details > .icon.alert:after {
+		background-image: url('https://2019.igem.org/wiki/images/4/44/Small_icon_alert.svg');
+   		background-size: 25px 25px;
+		content:"";
+		display: inline-block;
+		height: 25px;
+		width: 25px; 
+	}
+
+	.highlight.post_item  > .details > .icon.announcement:after {
+		background-image: url('https://2019.igem.org/wiki/images/8/86/Small_icon_announcement.svg');
+   		background-size: 25px 25px;
+		content:"";
+		display: inline-block;
+		height: 25px;
+		width: 25px; 
+	}
+
+
+	.highlight.post_item  > .details > .icon.note:after {
+		background-image: url('https://2019.igem.org/wiki/images/c/cb/Small_icon_note.svg');
+		background-size: 25px 25px;
+		content:"";
+		display: inline-block;
+		height: 25px;
+		width: 25px; 
+	}
+
+
+	.highlight.post_item  > .details > .icon.notice:after {
+		background-image: url('https://2019.igem.org/wiki/images/a/a8/Small_icon_notice.svg');
+		background-size: 25px 25px;
+		content:"";
+		display: inline-block;
+		height: 25px;
+		width: 25px; 
+	}
+
+
+	.highlight.post_item  > .details > .icon.pinned:after {
+		background-image: url('https://2019.igem.org/wiki/images/6/63/Small_icon_pinned.svg');
+		background-size: 25px 25px;
+		content:"";
+		display: inline-block;
+		height: 25px;
+		width: 25px; 
+	}
+
+
+	.highlight.post_item  > .details > .icon.reminder:after {
+		background-image: url('https://2019.igem.org/wiki/images/5/58/Small_icon_reminder.svg');
+		background-size: 25px 25px;
+		content:"";
+		display: inline-block;
+		height: 25px;
+		width: 25px; 
+	}
+
+	.highlight.post_item  > .details > .icon.why:after {
+		background-image: url('https://2019.igem.org/wiki/images/5/51/Small_icon_why.svg');
+   		background-size: 25px 25px;
+		content:"";
+		display: inline-block;
+		height: 25px;
+		width: 25px; 
+	}
+
+
+	/*on this page */
+	.on_page::after{
+		background-image:url('https://2019.igem.org/wiki/images/9/9b/Igem_page.svg');
+		background-size: 25px 25px;
+		content:"";
+		display: inline-block;
+		height: 25px;
+		width: 25px; 
+	}
+
+
+	/* center content */
+	p.center_content,
+	h1.center_content,
+	h2.center_content,
+	h3.center_content,
+	h4.center_content,
+	h5.center_content,
+	h6.center_content,
+	img.center_content {
+		margin:auto;
+		text-align:center!important;
+	}
+	
+
+	/*Multiple links in a ul */
+	/************************************************/
+	.multiple_links a{
+		color: black !important;
+	}
+
+	.multiple_links a:hover {
+		color: #13c0d7 !important;
+	}
+
+	/*Make text red and bold*/
+	/************************************************/
+	.red_text {
+		color: #f42434; 
+		font-weight:bold;
+	}
+
+	
+	
+	/*Image slider/
+	/************************************************/
+	.image_slider img {  width:100%; } 
+
+	ul.image_slider {
+    	list-style: none;
+    	margin: 0px;
+    	padding: 0px 0px 15px 0px;
+	}
+
+	/* image list hidden by default*/
+	ul.image_slider li{
+		display:none;
+	}
+
+	/*if the image is the current one, display it*/
+	ul.image_slider li.current_image {
+		display:block;
+	}
+
+	/*list of numbers for marking which number of image is displayed*/
+	ul.image_number{
+    	list-style: none;
+		margin: auto;
+    	padding: 0px;
+	    text-align: center;
+	}
+
+	/*decoration for the numbers*/
+	ul.image_number li{
+		border: 1px solid #c1c1c1;
+    	border-radius: 15%;
+		color: #c1c1c1;
+		cursor:pointer;
+	    display: block;
+		float: left;
+		height: 25px;
+    	margin-right: 15px;
+		padding-top:5px;
+	    width: 30px;
+	}
+
+	/*styling change when hovering or active*/
+	ul.image_number li.current_image_number, ul.image_number li:hover{
+		background-color:#00a19c;
+		border: 1px solid #00a19c;
+		color:#ffffff;
+	}
+
+	/*buttons for moving forward and backward between the images*/
+	.image_controller{
+		border-radius: 15%;
+		cursor:pointer;
+		color: #c1c1c1;
+		float:left;
+		height: 25px;
+		text-align:center;
+		margin-right: 15px;
+		padding-top:7px;
+		width:30px;
+	}
+
+	/*status change when hovering on the button*/
+	.image_controller:hover{
+		background-color:#00a19c;
+		color:#ffffff;
+	}
+
+
+	/*text content for next button*/
+	.image_controller.next::before{
+		content:"▶";
+	}
+
+
+	/*text content for previous button*/
+	.image_controller.prev::before{
+		content:"◀ ";
+	}
+
+
+
+	/*Navigation support/
+	/************************************************/
+
+
+	.navigation_support_title {
+		background-color: #f2f2f2;
+    	border-radius: 7px;
+		color: #797979;
+    	cursor: pointer;
+		float: left;
+    	font-size: 120%;
+		font-weight: bold;
+		height: 25px;
+		margin: 0px 10px 0px 0px;
+		padding: 8px 3.5px 2px 3.5px;
+	    text-align: center;
+		width: 200px;
+	}
+
+
+	.navigation_button {   
+		border: 2px solid #c1c1c1;
+    	border-radius: 15%;
+    	color: #797979;
+		cursor: pointer;
+		display: block;
+		float: left;
+		font-size: 120%;
+	    font-weight: bold;
+		height: 25px;
+    	margin-right: 15px;
+    	padding: 6px 1.5px 0px 1.5px;
+    	text-align: center;
+	    width: 30px;
+	}
+
+
+	.navigation_button.arrow_navigation {
+		border: 2px solid white;
+		margin-top: 0px;
+	}
+
+	.navigation_button.arrow_navigation:hover {
+ 		color: #00a19c; 
+		background-color: #ffffff;
+		border: 2px solid white;
+	}
+
+
+
+	.navigation_button:hover, .title_extra:hover+.navigation_button, .navigation_button.active_navigation_button:hover  { 
+		background-color: #00a19c; 
+		border: 2px solid #00a19c;
+		color: #ffffff; 
+	}
+
+	.navigation_button:hover+.title_extra, .title_extra:hover {   
+		color: #00a19c; 
+		display:block; 
+	}
+
+	.navigation_button.active_navigation_button {
+		color: #00a19c;
+		background-color: #f2f2f2; 
+		border: 2px solid #00a19c;
+	}
+
+
+	/*REVIEW THIS ANA*/
+	.title_extra {
+		color: #00a19c; 
+		display:none;
+		float:left; 
+		margin-right: 20px; 
+		padding: 7px 0px; 
+	}
+
+	.title_extra.main_item { 
+		display:block; 
+		text-decoration: underline;
+	} 
+	
+	.title_extra.support_item {
+		display:block;
+		margin-left: -17px;
+		margin-right:0px; 
+	}
+	
+	.title_extra.support_item:hover { 
+		color: #00a19c;
+	}
+
+
+	.igem_menu_wrapper::-webkit-scrollbar { 
+    	display: none; 
+	}
+
+
+	/*track navigation */
+	/************************************************/
+
+	.track_navigation{
+		float:left;
+		width:8.33%; 
+	}
+
+	.track_navigation> img {
+		opacity: 1.0;
+	}
+
+
+	.track_navigation> img:hover{
+		opacity: 0.5;
+	}
+	
+	
+	/*accordion */
+	/************************************************/
+
+	/*wrapper for each month*/
+	.collapsible_accordion { 
+		border-bottom: 1px solid #c1c1c1; 
+		float: left; 
+		padding: 30px 0px 20px 0px;
+		width:100%; 
+	}
+
+	/*content to show/hide*/
+	.collapsible_accordion_content {
+		display:block;
+		margin-top:30px;
+	}
+
+	
+	/* button controling the show/hide of the month's events*/
+	.collapsible_accordion_access{
+		background-color: #00a19c;
+		border: 2px solid #00a19c;
+		border-radius: 14%;
+		color: #ffffff !important;
+		float: right;
+		margin-top: -4px;
+		text-align: center;
+		padding: 5px 4px 0px 4px;
+		width: 20px;
+	}
+
+	/*when hovering on the show/hide month content button*/
+	.collapsible_accordion_access:hover {
+		background-color:#00a19c; 
+		border: 2px solid #00a19c;
+		cursor:pointer; 
+	}
+	
+	
+	/*calendar*/
+	/************************************************/
+
+	/*deadline's date*/
+	.deadline_date {
+    	border: 2px solid #c1c1c1;
+		border-radius: 5%;
+		color: #000;
+		float: left;
+	    font-size: 155%;
+		font-weight:bold;
+		margin-right: 5%;
+		max-width: 100px;
+	    padding: 30px 0px;
+	    text-align: center;
+		width: 15%;
+	}
+
+	/* description of the deadline*/
+	.deadline_content {
+		float: left; 
+		width:75%;
+	}
+
+	/*controlled image size*/
+
+	.controlled_size_image{
+		max-width: 300px;
+	}	
+
+
+
+	/*read more class for large sections of text*/
+
+	.read_more {
+		background-color:#00A19B;
+		border: 1px solid #00A19B;
+		border-radius:5px;
+		color: #ffffff;
+		font-weight: bold;
+		padding: 0px 12px;
+	}
+
+
+	.read_more:hover { 
+		background-color:#0a5157;
+		border: 1px solid #0a5157;
+		color: #ffffff;
+		cursor:pointer;
+	}
+
+
+	.read_more::before{
+		content: "Read more"; 
+		white-space:nowrap;
+	}
+
+	.read_more.show_less::before{
+		content: "Show less"; 
+	}
+
+	.read_more_text{
+		display:none;
+	}
+
+	
+/*mobile*/
+/**************************************************************************************************************************************************************************************************/
+
+
+	/* 1784px  */
+	/************************************************/
+	@media only screen and (max-width: 1784px) {
+		.igem_content_wrapper { width:85%;}
+	}
+
+	/* 1602px  */
+	/************************************************/
+	@media only screen and (max-width: 1602px) {
+		.hub_title{ font-size: 105%;}
+	}
+
+
+	/* 1450px  */
+	/************************************************/
+	@media only screen and (max-width: 1450px) {
+		
+		.hub_title{ font-size: 90%;}
+		.submenu_item {font-size:85%;}
+		.subsubmenu_item {font-size:80%;}
+		
+	}
+
+	
+	/* 1200px  */
+	/************************************************/
+	@media only screen and (max-width: 1200px) {
+		
+		#content {width:100%;}
+		.igem_menu_wrapper {width:15%; right:0%;}
+		.load_menu_here, .menu_icon, .hub_icon {display:none;}
+		 ul.image_slider { padding:0px; width: 100%; margin: auto;}
+		.hub_title{ width: 77%; padding-left: 7%; padding-right:0; font-size:80%;} 
+		.submenu_item{ padding-left: 16%; padding-right:0; font-size:75% }
+		.submenu_item.with_subsub_menu{ width:68%;}   
+		.subsubmenu_item {font-size:70%;}
+		.igem_column_wrapper{padding-top:0px;}
+		
+	}
+
+	
+	/* 1100px  */
+	/************************************************/
+	@media only screen and (max-width: 1100px) {
+		
+		.igem_content_wrapper {width:100%; margin-left:0px;}
+		.igem_column_wrapper{padding-top:25px;}
+
+		.half_size, .two_thirds_size, .third_size, .three_quarter_size, .quarter_size, 
+		.column.full_size > .highlight.news_item > .column.quarter_size, 
+		.column.full_size > .highlight.news_item > .column.three_quarter_size, 
+		.column.full_size > .highlight.post_item > .column.quarter_size, 
+		.column.full_size > .highlight.post_item > .column.three_quarter_size {width:100%;}
+		
+		.column img { width: 96%; padding: 2% 0px;}
+		.highlight {padding:15px 5px;}
+		.igem_menu { width: 100%; float: left; position: relative; max-width: 100%;}
+		.igem_mobile_menu_bar, .hub_icon {display:block;}
+
+		.hub_title{ width: 68%; padding-left:0%} 
+		.igem_menu, .igem_menu_logo {display:none;}
+
+		.highlight.post_item {padding:0px;}
+		.highlight.post_item > .details { clear: both; max-height: 80px; padding:15px; width: 89%;}
+		.highlight.post_item > .details > .icon, .highlight.post_item  > .details > .title {clear: both;}
+		.highlight.post_item > .details > .date {clear: both; float:left;}
+		.highlight.post_item img { padding: 2%; margin: auto;}
+
+		.igem_menu{  width: 30%; float: right; position: fixed; margin-top: 47px;  max-width: 100%;}
+		.full_size_image { margin-top: 0px;} 
+
+	}
+	
+	/* 800px  */
+	/************************************************/
+	@media only screen and (max-width: 800px) {
+		.igem_menu{  width: 50%;}
+	}
+	
+	/* 600px  */
+	/************************************************/
+	@media only screen and (max-width: 600px) {
+		.igem_menu{  width: 60%;}
+	}
+
+	
+	
+</style>
+
+
+
+
