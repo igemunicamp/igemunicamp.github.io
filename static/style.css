@@ -536,13 +536,13 @@ background-color: #ccc;
 	/*font family next art*/
 	@font-face {
 		font-family: Freeroad_Bold;
-		src: url(https://2019.igem.org/wiki/images/1/1f/2019_freeroad_bold_font.ttf);
+		src: url(./fonts/freeroad_bold.ttf);
 	}
 
 	/*font family freeroad*/
 	@font-face {
 		font-family: Freeroad_Regular;
-   		src: url(https://2019.igem.org/wiki/images/2/26/2019_freeroad_font.ttf);
+   		src: url(./fonts/freeroad.ttf);
 	}
 
 	/* styling for the titles h1, h2*/
