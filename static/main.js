@@ -6,16 +6,21 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 	
 	
 	//Place all the team information in the general printing div for users to browse
-	for( x=0; x<50; x++) {
+	
+	/*
+	x = Math.floor(Math.random() * all_teams_info.length); 
 
-		print_this_team("#general_all_teams", all_teams_info[x]);
-	}
+	$("#general_all_teams").append("<p> RANDOM TEAM </p></div>"+
+							  "<div class='clear extra_space'>");
+
+
+
+	print_this_team("#general_all_teams", all_teams_info[x]);
+	*/
 	
 	//user clicks to load more teams (50 teams have been printed by default)
 	var print_round = 0;
 	$('#load_more_teams').click(function(){
-		
-		
 		//make sure the limit is not exceeded 
 		if( (print_round + 50 )  <= all_teams_info.length  ) {
 			print_round = print_round+50;
@@ -38,8 +43,10 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 		
 
 	});
+
+	$(".filter_button").show();
 	
-	
+	/*
 	//switch between the categories
 	$('.filter_categories_titles').click(function() {
 		
@@ -63,7 +70,6 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 		
 	});
 	
-	
 	//if the user is selecting something from the team list dropdown
 	$( "#team_list" ).change(function() {
 		
@@ -84,6 +90,8 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 		}
 		
 	});
+
+	*/
 	
 	
 	//if the user clicks on a filter subcategory
@@ -117,7 +125,6 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 	function setup_lists(team_list){
 	
 		var clean_name;
-	
 		//generate the team list 
 		for (x=0; x< team_list.length; x++){
 		
@@ -126,6 +133,8 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 			$("#team_list").append("<option value='"+clean_name+"'>"+team_list[x].team_name+"</option>");
 
 		}
+
+		
 		
 				
 		//clean the previous variable
@@ -144,6 +153,16 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 			$("#country_list").append("<option value='"+clean_name+"'>"+countries[x]+"</option>");
 
 		}
+
+		//generate the list of unique countries 
+		var years = ['2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015','2016','2017','2018','2019'];
+		
+		
+		for (x=0; x< years.length; x++){
+		
+			$("#year_list").append("<option value='"+years[x]+"'>"+years[x]+"</option>");
+
+		}
 		
 		
 		//clean the previous variable
@@ -153,7 +172,7 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 		//generate a string with all the awards
 		for (x=0; x< team_list.length; x++){
 					
-			if(team_list[x].award != '-' && team_list[x].award != "" && team_list[x].award !=" "){
+			if(team_list[x].award != '-' && team_list[x].award != "" && team_list[x].award !=" " && team_list[x].year == "2019"){
 					
 				all_awards_str = all_awards_str + team_list[x].award +",";		
 				
@@ -192,8 +211,6 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 			$("#awards_list").append("<option value='"+clean_name+"'>"+unique_awards[x]+"</option>");
 
 		}
-
-
 		
 		//once the lists are ready, enable the search button 
 		enable_search_button();
@@ -250,7 +267,8 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 			'New Application':'<svg class="small_icon" height="20px" enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><g fill="#D1A5E0"><rect x="40.49" y="73.851" width="19" height="3.8"/><rect x="40.49" y="80.75" width="19" height="3.8"/><path d="m70.09 26.45c-4.1-6.6-11.5-11-20-11s-15.9 4.4-20 11c-2.2 3.5-3.4 7.5-3.4 11.9 0 4.5 1.3 8.699 3.6 12.3 2.3 4.3 5.1 8 6.5 10.899 2.5 5 3.7 9.4 3.7 9.4h19s1.199-4.4 3.699-9.4c1.4-2.8 4.2-6.6 6.5-10.899 2.301-3.5 3.601-7.7 3.601-12.3 0.2-4.4-1.101-8.4-3.2-11.9zm-13.8 15.2l1.399 8.399-7.7-4-7.7 3.9 1.5-8.4-6.2-5.899 8.6-1.2 3.9-7.6 3.8 7.6 8.601 1.2-6.2 6z"/></g></svg>',
 			'Therapeutics':'<svg class="small_icon" height="20px" enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><g fill="#FFABC1"><path d="M63.25,51.25v3.2h-8.899v8.9h-8.9v-8.9h-8.8v-3.2h-6.7v13c0,11,9,20,20,20s20-9,20-20v-13H63.25z"/><path d="M49.95,15.75c-11,0-20,9-20,20v13h6.7v-3.2h8.899V36.65h8.9v8.899h8.9v3.2h6.7v-13   C69.95,24.75,60.95,15.75,49.95,15.75z"/></g></svg>',
 			'Software':'<svg class="small_icon" height="20px"  enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="m84.05 25.55c0-0.9-0.8-1.7-1.699-1.7h-64.7c-0.9 0-1.7 0.8-1.7 1.7v48.899c0 0.9 0.8 1.701 1.7 1.701h64.7c0.899 0 1.699-0.801 1.699-1.701v-48.899zm-3.4 24.6l-22.6 22.6-3.8-3.801 18.9-18.899-18.9-18.9 3.8-3.8 22.6 22.8zm-38.1 11.1l-3.8-3.801 18.7-18.599 3.8 3.8-18.7 18.6zm3.2-30.3l-18.899 18.9 18.899 18.9-3.8 3.801-22.6-22.601 22.5-22.5h0.199l3.701 3.5z" fill="#B2C4CB"/></svg>',
-			'Open':'<svg class="small_icon" height="20px" enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><style type="text/css"> .st0{fill:#019CDB;}</style><circle class="st0" cx="50.1" cy="50.6" r="6"/><path class="st0" d="m63.8 22.4h-27.6l-18.3 27.6 18.4 27.6h27.6l18.2-27.6-18.3-27.6zm2.1 27.9c0 8.8-7.1 15.9-15.9 15.9s-16-7.1-16-15.9 7.1-15.9 15.9-15.9 16 7.1 16 15.9z"/></svg>'
+			'Open':'<svg class="small_icon" height="20px" enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><style type="text/css"> .st0{fill:#019CDB;}</style><circle class="st0" cx="50.1" cy="50.6" r="6"/><path class="st0" d="m63.8 22.4h-27.6l-18.3 27.6 18.4 27.6h27.6l18.2-27.6-18.3-27.6zm2.1 27.9c0 8.8-7.1 15.9-15.9 15.9s-16-7.1-16-15.9 7.1-15.9 15.9-15.9 16 7.1 16 15.9z"/></svg>',
+			'-':'<svg class="small_icon" height="20px" enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><style type="text/css"> .st0{fill:#019CDB;}</style><circle class="st0" cx="50.1" cy="50.6" r="6"/><path class="st0" d="m63.8 22.4h-27.6l-18.3 27.6 18.4 27.6h27.6l18.2-27.6-18.3-27.6zm2.1 27.9c0 8.8-7.1 15.9-15.9 15.9s-16-7.1-16-15.9 7.1-15.9 15.9-15.9 16 7.1 16 15.9z"/></svg>'
 			},
 
 			//parts
@@ -271,7 +289,7 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 		];
 		
 			$(where_to_append).append("<div class='column full_size general_p'>"+ 
-									  "<div class='team_information_wrapper'><h2>"+team_to_print.team_name+"</h2></div>"+
+									  "<div class='team_information_wrapper'><h2>"+team_to_print.team_name+" ("+team_to_print.year+")"+"</h2></div>"+
 									  "<div class='team_information_wrapper institution'><p>"+svgs_coordinates[0]+"<b>Institution: </b> "+team_to_print.institution+"</p></div>"+
 									  "<div class='clear'></div>"+
 									  "<div class='team_information_wrapper'>"+
@@ -311,12 +329,9 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 		//list of objects to hold all the results
 		var found_teams =[];
 		
-		
 		//remove any results from previous searches, 
 		$("#filtered_results").empty();
-	
-		$("#general_all_teams").fadeOut(800);
-		
+
 		
 		//get the values to search for each category, replace all '_' with " "
 		var values_to_search = {
@@ -325,19 +340,34 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 			section: ($('#section_list > li.selected_subcategory').attr('id')).replace(/_/g, " "),
 			region: ($('#region_list > li.selected_subcategory').attr('id')).replace(/_/g, " "),
 			medal: ($('#medal_list > li.selected_subcategory').attr('id')).replace(/_/g, " "),
-			award: ($('#awards_list').val()).replace(/_/g, " ")
+			award: ($('#awards_list').val()).replace(/_/g, " "),
+			keyword: $('#keyword').val(),
+			year: $('#year_list').val(),
+			institution: $('#institution').val()
 		};
 		
 		//get what categories is the user searching in 
 		var categories_being_searched = $('.showing').attr('id');
 	
-		
+		console.log(values_to_search)
 		//searching in General information for : location, track, section and/or region
 		if(categories_being_searched == 'general_information'){
 			
 			// if the user hasn't selected any particular category, display all results 
-			if(values_to_search.location == 'all' && values_to_search.track == 'all' && values_to_search.section =='all' && values_to_search.region =='all' && values_to_search.medal == 'all' && values_to_search.award == 'all') {
-				$("#general_all_teams").fadeIn(800);
+			if(values_to_search.location == 'all' &&
+			 values_to_search.track == 'all' && values_to_search.section =='all'
+			  && values_to_search.region =='all' && values_to_search.medal == 'all'
+			   && values_to_search.award == 'all' && values_to_search.keyword == ''
+			   && values_to_search.institution == '' && values_to_search.year == 'all'
+			   ) {
+
+				r = Math.floor(Math.random() * all_teams_info.length); 
+
+				$("#filtered_results").append("<p> Nothing in mind? Here is a random team:</p></div>"+
+										  "<div class='clear extra_space'>");
+
+				print_this_team("#filtered_results", all_teams_info[r]);
+
 				requested_a_search = false ;
 
 			}  
@@ -356,6 +386,9 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 				
 					if( (current_team_obj.location == values_to_search.location || values_to_search.location == 'all') &&
 						(current_team_obj.track == values_to_search.track || values_to_search.track == 'all' ) &&
+						(current_team_obj.year == values_to_search.year || values_to_search.year == 'all' ) &&
+						((current_team_obj.abstract).includes(values_to_search.keyword) == true) &&
+						((current_team_obj.institution.toLowerCase()).includes(values_to_search.institution.toLowerCase()) == true) &&
 						(current_team_obj.section == values_to_search.section || values_to_search.section == 'all' ) &&
 						(current_team_obj.region == values_to_search.region || values_to_search.region == 'all' ) &&
 						(current_team_obj.medal == values_to_search.medal || values_to_search.medal == 'all') &&
