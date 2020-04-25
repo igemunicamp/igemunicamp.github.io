@@ -411,16 +411,29 @@ $.getJSON( "./static/teams.json", function( all_teams_info ) {
 		
 		if(requested_a_search == true){
 
-			$("#filtered_results").append("<h3> Found "+found_teams.length+" result(s).</h3>");
+			$("#filtered_results").append("<h3 id='found_teams'> Found "+found_teams.length+" result(s).</h3>");
+
+			len =  found_teams.length
+			if (len > 50) {
+				len = 50;
+				$("#found_teams").append(" Printing 50 teams:");
+
+			}
 			
 			//once the search is complete print results 
-			for( x=0; x< found_teams.length; x++) {
+			for( x=0; x< len; x++) {
 
 				print_this_team("#filtered_results", found_teams[x]);
 		 
 			}
 			
 		}
+	}
+
+	function resetForm() {
+    	document.getElementById("searchForm").reset();
+    	$(".selected_subcategory").removeClass('selected_subcategory');
+		$(".all_category").addClass('selected_subcategory');
 	}
 
 	//this will enable and disable filters depending on other being selected

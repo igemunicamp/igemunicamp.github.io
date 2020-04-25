@@ -55,7 +55,8 @@
 		
 		<div class="clear extra_space"></div>
 		
-		
+	<form id="searchForm">
+
 		<!-- FILTER CATEGORIES: GENERAL INFORMATION -->
 		<div class="filter_categories showing" id="general_information">
 		
@@ -69,7 +70,7 @@
 
 			<ul class="horizontal_select" id="region_list">
 				<li class="select_title"> Region: </li>
-				<li class="selected_subcategory" id="all"> All regions </li>
+				<li class="selected_subcategory all_category" id="all"> All regions </li>
 				<li id="Africa">Africa</li>
 				<li id="Asia">Asia</li>
 				<li id="Europe">Europe</li>
@@ -90,7 +91,7 @@
 
 			<ul class="horizontal_select" id="section_list">
 				<li class="select_title"> Section:  </li>
-				<li class="selected_subcategory" id="all"> All sections </li>
+				<li class="selected_subcategory all_category" id="all"> All sections </li>
 				<li id="Undergrad">Undergrad</li>
 				<li id="Overgrad">Overgrad</li>
 				<li id="High_School">High School</li>
@@ -120,7 +121,7 @@
 
 				<ul class="horizontal_select" id="medal_list">
 					<li class="select_title"> Medals: </li>
-					<li class="selected_subcategory" id="all"> All Medals </li>
+					<li class="selected_subcategory all_category" id="all"> All Medals </li>
 					<li id="Gold">Gold</li>
 					<li id="Silver">Silver</li>
 					<li id="Bronze">Bronze</li>
@@ -153,7 +154,14 @@
 				SEARCH
 			</div>
 		</div>
+
+		<div class="reset_button showing">
+			<div class="reset_button" id="reset_form">
+				<button type="button" class="btn btn-secondary" onclick="resetForm()">Reset form</button>
+			</div>
+		</div>
 		
+		</form>
 		
 	</div>
 
