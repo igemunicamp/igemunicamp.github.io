@@ -47,146 +47,89 @@
 
 	<div class="column full_size">
 
-		<h2> Search and Filter </h2>
+		<h3> Search and Filter </h3>
+		<div class="clear extra_space"></div>		
 		<div class="clear extra_space"></div>
 		
 
-		
-		<div class="clear extra_space"></div>
-		
-	<form id="searchForm">
+	<form action="/" method="GET">
+	  <div class="form-group">
+	    <label for="KeywordInput">Keyword</label>
+	    <input class="form-control" id="KeywordInput" placeholder="We will search for projects that contains this keyword in the abstract" name="abstract__contains">
+	  </div>
 
-		<!-- FILTER CATEGORIES: GENERAL INFORMATION -->
-		<div class="filter_categories showing" id="general_information">
-		
+	  <div class="form-group">
+	    <label for="InstitutionInput">Institution</label>
+	    <input class="form-control" id="InstitutionInput" placeholder="Choose a specific institution" name="institution__contains">
+	  </div>
 
-              <div class="form-group" title="Search for a keyword within abstracts. For example: a chassis, a disease or a compound.">
-              	<input class="form-control" id="keyword" placeholder="Keyword">
-			  </div>
-			   <div class="form-group">	
-              	<input class="form-control" id="institution" placeholder="Institution">
-			  </div>
+	  <div class="form-group">
+	      <label for="SelectYear">Select Year</label>
+	      <select class="form-control" id="SelectYear" name="year">
+	        <option value="">Any Year</option>
+	      </select>
+	  </div>
 
-			<ul class="horizontal_select" id="region_list">
-				<li class="select_title"> Region: </li>
-				<li class="selected_subcategory all_category" id="all"> All regions </li>
-				<li id="Africa">Africa</li>
-				<li id="Asia">Asia</li>
-				<li id="Europe">Europe</li>
-				<li id="Latin_America">Latin America</li>
-				<li id="North_America">North America</li>
-			</ul>
-		
-			<div class="clear extra_space"></div>			
+	  <div class="form-group" id="RadioRegion">
+	  	<div class="form-check form-check-inline">
+	  	  <input class="form-check-input" type="radio" id="RegionsAll" name="region" value="" checked="checked">
+	  	  <label class="form-check-label" for="RegionsAll">All Regions</label>
+	  	</div>
+	  </div>
 
-			<select class="search_input" id="country_list"> 
-				<option value="all">All Countries/Territories</option>
+	  <div class="form-group">
+	      <label for="SelectLocation">Select Location</label>
+	      <select class="form-control" id="SelectLocation" name="location">
+	        <option value="">All Countries/Territories</option>
+	      </select>
+	  </div>
 
-            </select>
-			
-			
-			<div class="clear extra_space"></div>
-			
+	  <div class="form-group" id="RadioSection">
+	  	<div class="form-check form-check-inline">
+	  	  <input class="form-check-input" type="radio" id="SectionsAll" name="section" value="" checked="checked">
+	  	  <label class="form-check-label" for="SectionsAll">All Sections</label>
+	  	</div>	
+	  </div>
 
-			<ul class="horizontal_select" id="section_list">
-				<li class="select_title"> Section:  </li>
-				<li class="selected_subcategory all_category" id="all"> All sections </li>
-				<li id="Undergrad">Undergrad</li>
-				<li id="Overgrad">Overgrad</li>
-				<li id="High_School">High School</li>
-			</ul>
-			
+	  <div class="form-group">
+	      <label for="SelectTrack">Select Track</label>
+	      <select class="form-control" id="SelectTrack" name="track">
+	        <option value="">All Tracks</option>
+	      </select>
+	  </div>
 
-			<div class="clear extra_space"></div>
+	  <div class="form-group" id="RadioMedal">
+	  	<div class="form-check form-check-inline">
+	  	  <input class="form-check-input" type="radio" id="MedalsAll" name="medal" value="" checked="checked">
+	  	  <label class="form-check-label" for="MedalsAll">All Medals</label>
+	  	</div>
+	  </div>
 
-			<select class="search_input" id="track_list"> 
-				<option value="all">All Tracks</option>
-				<option value="Diagnostics">Diagnostics</option>
-				<option value="Energy">Energy</option>
-				<option value="Environment">Environment</option>
-				<option value="Food_and_Nutrition">Food and Nutrition</option>
-				<option value="Foundational_Advance">Foundational Advance</option>
-				<option value="High_School">High School</option>
-				<option value="Manufacturing">Manufacturing</option>		
-				<option value="New_Application"> New Application</option>
-				<option value="Open"> Open</option>
-				<option value="Software"> Software</option>
-				<option value="Therapeutics">Therapeutics</option>
-			</select>
+	  <div class="form-group">
+	      <label for="SelectTrack">Select Award</label>
+	      <select class="form-control" id="SelectAward" name="award">
+	        <option value="">All Awards</option>
+	      </select>
+	  </div>
 
-			
-			<div class="clear extra_space"></div>
-		
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</form>
 
-				<ul class="horizontal_select" id="medal_list">
-					<li class="select_title"> Medals: </li>
-					<li class="selected_subcategory all_category" id="all"> All Medals </li>
-					<li id="Gold">Gold</li>
-					<li id="Silver">Silver</li>
-					<li id="Bronze">Bronze</li>
-					<li id="-">No Medal</li>	
-				</ul>
-
-		
-			<div class="clear extra_space"></div>
-				
-					
-			<select class="search_input" id="awards_list"> 
-					<option value="all">Select an award</option>	
-            </select>
-
-			<div class="clear extra_space"></div>
-						
-			<select class="search_input" id="year_list"> 
-					<option value="all">Select a year</option>	
-            </select>
-
-		
-		</div>
-		
-		
-		<div class="clear extra_space"></div>
-		
-
-		<div class="filter_button showing">
-			<div class="search_button" id="go_search_filter">
-				SEARCH
-			</div>
-		</div>
-
-		<div class="reset_button showing">
-			<div class="reset_button" id="reset_form">
-				<button type="button" class="btn btn-secondary" onclick="resetForm()">Reset form</button>
-			</div>
-		</div>
-		
-		</form>
-		
 	</div>
 
 	<div class="clear extra_space"></div>
 	<div class="line_divider"></div>
 	<div class="clear extra_space"></div>
 
-
-
-	<h3 id="loading_stuff"> LOADING...</h3>
 	<div id="filtered_results">
 
 	</div>
-		
-	<div id="general_all_teams">
-	
-	<!-- <div class="button load_more_teams" id="load_more_teams"> <a>LOAD MORE TEAMS </a>  </div> -->
-
-
-
-
-
-</div>
 </div>
 
-<script type="text/javascript" src="./static/main.js"></script>
+<script type="module" src="./static/print.js"></script>
+<script type="module" src="./static/search.js"></script>
+<script type="module" src="./static/forms.js"></script>
+<script type="module" src="./static/main.js"></script>
 
 
 <!-- footer -->

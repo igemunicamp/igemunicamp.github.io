@@ -1,0 +1,175 @@
+<form id="searchForm">
+
+		<!-- FILTER CATEGORIES: GENERAL INFORMATION -->
+		<div class="filter_categories showing" id="general_information">
+		
+
+              <div class="form-group" title="Search for a keyword within abstracts. For example: a chassis, a disease or a compound.">
+              	<input class="form-control" id="keyword" placeholder="Keyword">
+			  </div>
+			   <div class="form-group">	
+              	<input class="form-control" id="institution" placeholder="Institution">
+			  </div>
+
+			<ul class="horizontal_select" id="region_list">
+				<li class="select_title"> Region: </li>
+				<li class="selected_subcategory all_category" id=""> All regions </li>
+				<li id="Africa">Africa</li>
+				<li id="Asia">Asia</li>
+				<li id="Europe">Europe</li>
+				<li id="Latin_America">Latin America</li>
+				<li id="North_America">North America</li>
+			</ul>
+		
+			<div class="clear extra_space"></div>			
+
+			<select class="search_input" id="country_list"> 
+				<option value="">All Countries/Territories</option>
+
+            </select>
+			
+			
+			<div class="clear extra_space"></div>
+			
+
+			<ul class="horizontal_select" id="section_list">
+				<li class="select_title"> Section:  </li>
+				<li class="selected_subcategory all_category" id=""> All sections </li>
+				<li id="Undergrad">Undergrad</li>
+				<li id="Overgrad">Overgrad</li>
+				<li id="High_School">High School</li>
+			</ul>
+			
+
+			<div class="clear extra_space"></div>
+
+			<select class="search_input" id="track_list"> 
+				<option value="">All Tracks</option>
+				<option value="Diagnostics">Diagnostics</option>
+				<option value="Energy">Energy</option>
+				<option value="Environment">Environment</option>
+				<option value="Food_and_Nutrition">Food and Nutrition</option>
+				<option value="Foundational_Advance">Foundational Advance</option>
+				<option value="High_School">High School</option>
+				<option value="Manufacturing">Manufacturing</option>		
+				<option value="New_Application"> New Application</option>
+				<option value="Open"> Open</option>
+				<option value="Software"> Software</option>
+				<option value="Therapeutics">Therapeutics</option>
+			</select>
+
+			
+			<div class="clear extra_space"></div>
+		
+
+				<ul class="horizontal_select" id="medal_list">
+					<li class="select_title"> Medals: </li>
+					<li class="selected_subcategory all_category" id=""> All Medals </li>
+					<li id="Gold">Gold</li>
+					<li id="Silver">Silver</li>
+					<li id="Bronze">Bronze</li>
+					<li id="-">No Medal</li>	
+				</ul>
+
+		
+			<div class="clear extra_space"></div>
+				
+					
+			<select class="search_input" id="awards_list"> 
+					<option value="">Select an award</option>	
+            </select>
+
+			<div class="clear extra_space"></div>
+						
+			<select class="search_input" id="year_list"> 
+					<option value="">Select a year</option>	
+            </select>
+
+		
+		</div>
+		
+		
+		<div class="clear extra_space"></div>
+		
+
+		<div class="filter_button showing">
+			<div class="search_button" id="go_search_filter">
+				SEARCH
+			</div>
+		</div>
+
+		<div class="reset_button showing">
+			<div class="reset_button" id="reset_form">
+				<button type="button" class="btn btn-secondary">Reset form</button>
+			</div>
+		</div>
+</form>
+
+
+
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioRegions" id="RegionsAfrica" value="Africa">
+  <label class="form-check-label" for="RegionsAfrica">Africa</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioRegions" id="RegionsAsia" value="Asia">
+  <label class="form-check-label" for="RegionsAsia">Asia</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioRegions" id="RegionsEurope" value="Europe">
+  <label class="form-check-label" for="RegionsEurope">Europe</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioRegions" id="RegionsLatinAmerica" value="Latin America">
+  <label class="form-check-label" for="RegionsLatinAmerica">Latin America</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="inlineRadioRegions" id="RegionsNorthAmerica" value="North America">
+  <label class="form-check-label" for="RegionsNorthAmerica">North America</label>
+</div>
+
+
+
+
+	  <div class="form-check form-check-inline">
+	    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+	    <label class="form-check-label" for="inlineRadio1">1</label>
+	  </div>
+	  <div class="form-check form-check-inline">
+	    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+	    <label class="form-check-label" for="inlineRadio2">2</label>
+	  </div>
+	  <div class="form-check form-check-inline">
+	    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
+	    <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
+	  </div>
+	  <div class="form-group">
+	      <label for="exampleFormControlSelect1">Example select</label>
+	      <select class="form-control" id="exampleFormControlSelect1">
+	        <option>1</option>
+	        <option>2</option>
+	        <option>3</option>
+	        <option>4</option>
+	        <option>5</option>
+	      </select>
+	    </div>
+	    <div class="form-group">
+	      <label for="exampleFormControlSelect2">Example multiple select</label>
+	      <select multiple class="form-control" id="exampleFormControlSelect2">
+	        <option>1</option>
+	        <option>2</option>
+	        <option>3</option>
+	        <option>4</option>
+	        <option>5</option>
+	      </select>
+	    </div>
+	
+
+
+
+
+
+
+
+
+
